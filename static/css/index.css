@@ -1,0 +1,137 @@
+/* ========== GLOBAL ========== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-image: url(../images/starry.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: white;
+  text-align: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ========== OVERLAY ========== */
+#overlay {
+  background-color: rgba(0, 0, 0, 0.65);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  animation: overlayFade 1s ease-out forwards;
+}
+
+/* ========== CONTENT ========== */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeSlideIn 1s ease-out forwards;
+  animation-delay: 1.5s;
+}
+
+/* ========== TITLE ========== */
+.title {
+  font-size: 4.5em;
+  margin: 20px 0;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #ccc;
+}
+
+/* ========== BUTTON ========== */
+button {
+  background-color: #00bfff;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #009acd;
+  transform: scale(1.05);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes overlayFade {
+  from { opacity: 0; }
+  to { opacity: 0.65; }
+}
+
+.flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, white 10%, transparent 70%);
+  opacity: 0;
+  z-index: 998;
+  animation: flashBang 0.3s ease-out 1s forwards;
+}
+
+@keyframes flashBang {
+  0% { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+body.shake {
+  animation: screenShake 0.5s ease-in-out;
+}
+
+
+.meteor {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(white, yellow, orange, red);
+  border-radius: 50%;
+  box-shadow: 0 0 60px 30px rgba(255, 140, 0, 0.9);
+  z-index: 999;
+  top: -80px;
+  left: -150px;
+  animation: meteorCrash 1.2s ease-in forwards;
+}
+
+@keyframes meteorCrash {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(1200px, 800px) rotate(720deg);
+    opacity: 0;
+  }
+}

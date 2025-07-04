@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-image: url(../images/starry.jpg) ;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+}
+
+#overlay {
+  background-color: rgba(0, 0, 0, 0.65);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+audio {
+  margin: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+#player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#gif-preview img {
+  max-width: 700px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #00bfff;
+  margin-bottom: 20px;
+}
+
+#vibe-desc{
+  font-size: 1.25rem;
+  font-family: 'Orbitron', sans-serif;
+}
+.planet-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.sun-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.sun-buttons button,
+.planet-buttons button {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* ☀ Sun Buttons */
+.sun-buttons button {
+  background: radial-gradient(circle, #FFD700 40%, #FFA500 100%);
+  border: 4px solid #FF8C00;
+  box-shadow: 0 0 20px 8px rgba(255, 165, 0, 0.7);
+  animation: pulse 2s infinite;
+}
+
+.sun-buttons button:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+/* 🪐 Planet Buttons (Prev/Next) */
+#prev-btn,
+#next-btn {
+  background: radial-gradient(circle, #4B0082 20%, #6A5ACD 80%);
+  box-shadow: 0 0 15px 5px rgba(106, 90, 205, 0.6);
+  border: 3px solid #9370DB;
+}
+
+#prev-btn:hover,
+#next-btn:hover {
+  transform: scale(1.1) rotate(-10deg);
+}
+
+/* 🔆 Pulse animation */
+@keyframes pulse {
+  0% { box-shadow: 0 0 10px 5px rgba(255, 200, 0, 0.6); }
+  50% { box-shadow: 0 0 30px 15px rgba(255, 165, 0, 0.8); }
+  100% { box-shadow: 0 0 10px 5px rgba(255, 200, 0, 0.6); }
+}
+
+.title {
+  animation: fadeSlideIn 1s ease-out both;
+  animation-delay: 0.3s;
+}
+
+#gif-preview {
+  animation: fadeSlideIn 1s ease-out both;
+  animation-delay: 0.5s;
+}
+
+.planet-buttons {
+  animation: fadeSlideIn 1s ease-out both;
+  animation-delay: 0.8s;
+}
+
+
+/* Fade-in and slide-up animation for page entry */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content {
+  animation: fadeSlideIn 1.2s ease-out both;
+}
+
+/* Optional: overlay fade-in */
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.65;
+  }
+}
+
+#overlay {
+  animation: overlayFade 1s ease-out both;
+}
