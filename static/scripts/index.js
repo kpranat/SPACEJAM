@@ -6,15 +6,31 @@ document.getElementById('fetch-btn').addEventListener('click', async () => {
   localStorage.setItem('title', data.title);
   localStorage.setItem('description', data.explanation);
 
-  document.body.style.backgroundImage = `url('${data.url}')`;
+  const response = await fetch('/api/analyze-image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ imageUrl: data.url })
+  });
+  const analysis = await response.json();
+
+  // Set background gradient
+  document.body.style.background = `linear-gradient(135deg, ${analysis.gradient[0]}, ${analysis.gradient[1]})`;
+  localStorage.setItem('gradient1', analysis.gradient[0]);
+  localStorage.setItem('gradient2', analysis.gradient[1]);
+  const mood = analysis.mood;
+
+  // Set APOD title and description
   document.getElementById('apod-title').innerText = data.title;
   document.getElementById('apod-description').innerText = data.explanation;
 
-  document.getElementById('go-btn').style.display = 'inline-block';
+  // Show the NASA image
+  const img = document.getElementById('apod-image');
+  img.src = data.url;
+  img.style.display = 'block';
 
+  document.getElementById('go-btn').style.display = 'inline-block';
   document.getElementById("apod-title").classList.add("show");
   document.getElementById("apod-description").classList.add("show");
-
   document.getElementById('fetch-btn').style.display = 'none';
 });
 

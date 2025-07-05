@@ -16,6 +16,7 @@ body {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s forwards;
+  align-content: center;
 }
 
 
@@ -56,4 +57,14 @@ button:hover {
   opacity: 1;
 }
 
+#apod-image {
+  display: none;
+  max-width: 600px;
+  max-height: 600px;
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  margin: 20px auto;
+  object-fit: contain;
+}
 

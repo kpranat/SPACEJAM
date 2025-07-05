@@ -1,8 +1,16 @@
 const GIPHY_API_KEY = 'OiPHToG85RiP5N8JNgCnGwBil2IyE3UN'; // Replace with your Giphy API key
 
+const gradient1 = localStorage.getItem('gradient1');
+const gradient2 = localStorage.getItem('gradient2');
+
+if (gradient1 || gradient2) {
+  document.body.style.background = `linear-gradient(135deg, ${gradient1}, ${gradient2})`;
+}
+
 const bg = localStorage.getItem('spaceImage');
 const title = localStorage.getItem('title');
 const desc = localStorage.getItem('description');
+
 
 if (bg) {
  // document.body.style.backgroundImage = `url('${bg}')`;
