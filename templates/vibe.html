@@ -6,7 +6,8 @@
   <title>Your Cosmic Vibe</title>
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
 
-  <link rel="stylesheet" href="../static/css/vibe.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vibe.css') }}">
+
 </head>
 <body>
   <div id="overlay"></div>
@@ -40,7 +41,7 @@
   
 
 
-  <script src="../static/scripts/vibe.js"></script>
+  <script src="{{ url_for('static', filename='scripts/vibe.js') }}"></script>
   <!-- Spotify SDK -->
 <script src="https://sdk.scdn.co/spotify-player.js"></script>
 
