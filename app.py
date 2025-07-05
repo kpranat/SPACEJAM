@@ -24,6 +24,7 @@ SCOPE = "streaming user-read-email user-read-private user-modify-playback-state 
 def index():
     return render_template('index.html')
 
+
 @app.route('/vibe.html')
 def vibe():
     return render_template('vibe.html')
@@ -109,9 +110,8 @@ def callback():
 def get_token():
     token_data = session.get('spotify_token')
     if not token_data:
-        return redirect('/login-spotify')  # redirect to login if no token
+        return jsonify({'error': 'No token found'}), 401
     return jsonify(token_data)
-
 
 # 🎶 Mood to track URI mapping API
 @app.route('/api/mood-track/<mood>')
