@@ -124,5 +124,6 @@ def mood_to_track(mood):
     track_uri = mood_track_map.get(mood.lower(), 'spotify:track:5N5k9nd479b1xpDZ4usjrg')
     return jsonify({'track_uri': track_uri})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render provides PORT
+    app.run(host='0.0.0.0', port=port)
