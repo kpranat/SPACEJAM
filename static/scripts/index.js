@@ -14,7 +14,7 @@ document.getElementById('fetch-btn').addEventListener('click', async () => {
   const analysis = await response.json();
 
   // Set background gradient
-  document.body.style.background = `linear-gradient(135deg, ${analysis.gradient[0]}, ${analysis.gradient[1]})`;
+  document.body.style.background = `radial-gradient(circle at 50% 50%, ${analysis.gradient[0]}, ${analysis.gradient[1]})`;
   localStorage.setItem('gradient1', analysis.gradient[0]);
   localStorage.setItem('gradient2', analysis.gradient[1]);
   const mood = analysis.mood;

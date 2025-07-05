@@ -57,14 +57,40 @@ function extractKeyword(text) {
 
 fetchGif();
 
-const audio = document.getElementById("cosmic-audio");
-  const playBtn = document.getElementById("play-btn");
-  const pauseBtn = document.getElementById("pause-btn");
+const playBtn = document.getElementById("play-btn");
+const pauseBtn = document.getElementById("pause-btn");
 
-  playBtn.addEventListener("click", () => {
-    audio.play();
-  });
+playBtn.addEventListener("click", () => {
+  playSpotifyTrack();
+});
 
-  pauseBtn.addEventListener("click", () => {
-    audio.pause();
-  });
+pauseBtn.addEventListener("click", () => {
+  pauseSpotify();
+});
+
+function playSpotifyTrack() {
+  if (window.spotifyDeviceId && window.spotifyAccessToken && window.spotifyTrackUri) {
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${window.spotifyDeviceId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ uris: [window.spotifyTrackUri] }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.spotifyAccessToken}`
+      },
+    }).catch(err => console.error('Play error:', err));
+  }
+}
+
+function pauseSpotify() {
+  if (window.spotifyAccessToken) {
+    fetch('https://api.spotify.com/v1/me/player/pause', {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${window.spotifyAccessToken}`
+      }
+    }).catch(err => console.error('Pause error:', err));
+  }
+}
+
+
+

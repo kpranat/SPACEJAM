@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Your Cosmic Vibe</title>
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+
   <link rel="stylesheet" href="../static/css/vibe.css" />
 </head>
 <body>
@@ -30,10 +32,59 @@
 
       
        <p id="vibe-desc"></p>
+       <a href="/login-spotify"><button style="margin-top:10px;">Login with Spotify</button></a>
+
 
     </div>
   </div>
+  
+
 
   <script src="../static/scripts/vibe.js"></script>
+  <!-- Spotify SDK -->
+<script src="https://sdk.scdn.co/spotify-player.js"></script>
+
+<script>
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    fetch('/token')
+      .then(res => res.json())
+      .then(data => {
+        const token = data.access_token;
+        window.spotifyAccessToken = token;
+
+        const player = new Spotify.Player({
+          name: 'Cosmic Vibe Player',
+          getOAuthToken: cb => { cb(token); },
+          volume: 0.5
+        });
+
+        // Error handling
+        player.addListener('initialization_error', ({ message }) => console.error('Init error', message));
+        player.addListener('authentication_error', ({ message }) => console.error('Auth error', message));
+        player.addListener('account_error', ({ message }) => console.error('Account error', message));
+        player.addListener('playback_error', ({ message }) => console.error('Playback error', message));
+
+        // Player ready
+        player.addListener('ready', ({ device_id }) => {
+          console.log('Spotify player ready with Device ID', device_id);
+          window.spotifyDeviceId = device_id;
+
+          // Fetch mood from localStorage or DOM
+          const mood = localStorage.getItem('mood') || 'space';
+
+          fetch(`/api/mood-track/${mood}`)
+            .then(res => res.json())
+            .then(data => {
+              window.spotifyTrackUri = data.track_uri;
+              // Automatically start playing
+              playSpotifyTrack();
+            });
+        });
+
+        player.connect();
+      });
+  };
+</script>
+
 </body>
 </html>

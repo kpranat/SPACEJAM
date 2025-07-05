@@ -159,3 +159,15 @@ audio {
 #overlay {
   animation: overlayFade 1s ease-out both;
 }
+
+.cosmic-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.cosmic-animation svg {
+  max-width: 100%;
+  height: auto;
+}
