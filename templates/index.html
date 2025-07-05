@@ -3,27 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SpaceJamify</title>
+  <title>SpaceJam</title>
   <link rel="stylesheet" href="../static/css/index.css" />
 </head>
 <body>
-
   <div id="overlay"></div>
-  <div class="meteor"></div>
-  <div class="flash"></div>
-
   <div class="content">
-    <h1 class="title">🚀SpaceJam</h1>
-    <h4 class="tagline">"LET THE UNIVERSE CHOOSE YOUR MUSIC!!"</h4>
-    <br><br>
-    <button id="fetch-go-button" type="button">Get Your Cosmic Vibe</button>
-    <p id="apod-title"></p>
-    <p id="apod-description"></p>
-    <!-- Single combined button -->
-     
+    <h1 class="title" class="fade-in">🚀 SpaceJam</h1>
+    <h4>LET UNIVERSE CHOOSE THE MUSIC</h4>
+    <p id="apod-title" class="fade-in"></p>
+    <p id="apod-description" class="fade-in"></p>
+    <button id="fetch-btn">Get Today’s Cosmic Vibe</button>
+    <br /><br />
+    <button id="go-btn" style="display:none;">Go to Your Vibe</button>
   </div>
 
-  <script src="../static/scripts/script.js"></script>
-
+  <script src="../static/scripts/index.js"></script>
 </body>
 </html>

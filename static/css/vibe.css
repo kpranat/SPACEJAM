@@ -55,7 +55,7 @@ audio {
 
 #vibe-desc{
   font-size: 1.25rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Orbitron', sans-serif;;
 }
 .planet-buttons {
   display: flex;
