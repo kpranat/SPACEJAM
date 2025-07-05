@@ -126,6 +126,6 @@ def mood_to_track(mood):
 
 import os
 
-if _name_ == "_main_":
+if __name__ == "_main_":
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
