@@ -7,6 +7,26 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
+  <div class="loading-overlay" id="loading-screen">
+  <!-- Solar system background layer -->
+  <div class="solar-system">
+    <div class="sun"></div>
+    <div class="orbit orbit1"><div class="planet planet1"></div></div>
+    <div class="orbit orbit2"><div class="planet planet2"></div></div>
+    <div class="orbit orbit3"><div class="planet planet3"></div></div>
+  </div>
+
+  <!-- Loading content layer -->
+  <div class="loading-container">
+    <div class="loading-text">Loading your cosmic vibe...</div>
+    <div class="loading-bar">
+      <div class="loading-progress"></div>
+    </div>
+  </div>
+</div>
+
+
+
   <div id="overlay"></div>
   <div class="content">
     <h1 class="title" class="fade-in">🚀 SpaceJam</h1>
@@ -14,10 +34,16 @@
     <p id="apod-title" class="fade-in"></p>
     <img id="apod-image" alt="NASA IMAGE OF THE DAY" />
     <p id="apod-description" class="fade-in"></p>
+
+    <button id="speak-btn" style="display: none;">🔊 Listen</button>
+
+    
     <button id="fetch-btn">Get Today’s Cosmic Vibe</button>
     <br /><br />
+    
     <button id="go-btn" style="display:none;">Go to Your Vibe</button>
   </div>
+  
 
   <script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
 </body>

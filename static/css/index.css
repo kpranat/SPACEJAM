@@ -9,23 +9,23 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .content {
   text-align: center;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(20px);
   animation: fadeInUp 1s forwards;
   align-content: center;
 }
-
-
 
 #apod-description{
   font-family: 'Times New Roman', Times, serif;
   font-size: 1.25rem;
   max-width:100ch;
 }
+
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -68,3 +68,239 @@ button:hover {
   object-fit: contain;
 }
 
+/* Meteor Shower Loading Animation */
+.meteor-shower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.meteor {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: meteor-fall linear infinite;
+}
+
+.meteor::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, white, transparent);
+  transform: translateX(-100px);
+  opacity: 0.7;
+}
+
+.meteor::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform: translateX(-50px);
+  opacity: 0.5;
+}
+
+@keyframes meteor-fall {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) translateY(-100px);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vw) translateY(100vh);
+  }
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000ee; /* darker background with slight opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  backdrop-filter: blur(8px);
+}
+
+
+.loading-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.loading-text {
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Hide content during loading */
+.content.loading {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Fade out animation for meteor shower */
+.meteor-shower.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.loading-container {
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.loading-progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #00ffe0, #1e90ff, #00ffe0);
+  animation: loadbar 1s forwards;
+  border-radius: 5px;
+}
+
+@keyframes loadbar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Solar system behind loader */
+.solar-system {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sun {
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, #ffdb4d, #ffa500);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px 5px #ffcc00;
+}
+
+.orbit {
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.orbit1 { width: 80px; height: 80px; }
+.orbit2 { width: 140px; height: 140px; }
+.orbit3 { width: 200px; height: 200px; }
+
+.planet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: -40px;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.planet1 {
+  background: #87cefa;
+  animation: orbit1 4s linear infinite;
+}
+
+.planet2 {
+  background: #ff69b4;
+  animation: orbit2 6s linear infinite;
+}
+
+.planet3 {
+  background: #98fb98;
+  animation: orbit3 8s linear infinite;
+}
+
+@keyframes orbit1 {
+  0% { transform: rotate(0deg) translateX(40px) translateY(-50%); }
+  100% { transform: rotate(360deg) translateX(40px) translateY(-50%); }
+}
+@keyframes orbit2 {
+  0% { transform: rotate(0deg) translateX(70px) translateY(-50%); }
+  100% { transform: rotate(360deg) translateX(70px) translateY(-50%); }
+}
+@keyframes orbit3 {
+  0% { transform: rotate(0deg) translateX(100px) translateY(-50%); }
+  100% { transform: rotate(360deg) translateX(100px) translateY(-50%); }
+}
