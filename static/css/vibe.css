@@ -56,6 +56,7 @@ audio {
 #vibe-desc{
   font-size: 1.25rem;
   font-family: 'Orbitron', sans-serif;;
+  display: none;
 }
 .planet-buttons {
   display: flex;
@@ -170,4 +171,33 @@ audio {
 .cosmic-animation svg {
   max-width: 100%;
   height: auto;
+}
+
+.login-spotify {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #1DB954 0%, #1ED760 100%);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(30, 215, 96, 0.6);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  margin-top: 60px
+}
+
+.login-spotify:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(30, 215, 96, 0.8);
+}
+
+.login-spotify img {
+  width: 24px;
+  height: 24px;
 }
