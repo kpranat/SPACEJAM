@@ -68,6 +68,8 @@ def analyze_image():
         }
     return jsonify(result)
 
+
+
 # 🎵 Spotify OAuth flow
 @app.route('/login-spotify')
 def login_spotify():

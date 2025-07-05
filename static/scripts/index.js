@@ -66,6 +66,9 @@ document.getElementById('go-btn').addEventListener('click', () => {
 
 
 
+
+
+
 let isSpeaking = false;
 let currentUtterance = null;
 
@@ -95,4 +98,4 @@ document.getElementById('speak-btn').addEventListener('click', () => {
 // Stop speaking if user leaves the page
 window.addEventListener('beforeunload', () => {
   speechSynthesis.cancel();
-});
+})
