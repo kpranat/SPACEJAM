@@ -17,7 +17,7 @@ genai.configure(api_key=GEMINI_API_KEY)
 # Spotify config
 SPOTIFY_CLIENT_ID = 'ce0d57489375419f9a6401e35f26542b'
 SPOTIFY_CLIENT_SECRET = 'c1474458a85d48e9848fb1f893deee70'
-SPOTIFY_REDIRECT_URI = 'https://spacejam.onrender.com'
+SPOTIFY_REDIRECT_URI = 'https://spacejam.onrender.com/vibe.html'
 SCOPE = "streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state"
 
 @app.route('/')
