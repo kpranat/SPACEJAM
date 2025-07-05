@@ -109,8 +109,9 @@ def callback():
 def get_token():
     token_data = session.get('spotify_token')
     if not token_data:
-        return jsonify({'error': 'No token found'}), 401
+        return redirect('/login-spotify')  # redirect to login if no token
     return jsonify(token_data)
+
 
 # 🎶 Mood to track URI mapping API
 @app.route('/api/mood-track/<mood>')
