@@ -1,4 +1,4 @@
-const GIPHY_API_KEY = 'OiPHToG85RiP5N8JNgCnGwBil2IyE3UN'; // Replace with your Giphy API key
+const GIPHY_API_KEY = 'YOUR_API_KEY'; // Replace with your Giphy API key
 
 const gradient1 = localStorage.getItem('gradient1');
 const gradient2 = localStorage.getItem('gradient2');
@@ -57,6 +57,8 @@ function extractKeyword(text) {
 
 fetchGif();
 
+
+
 const playBtn = document.getElementById("play-btn");
 const pauseBtn = document.getElementById("pause-btn");
 
@@ -91,6 +93,5 @@ function pauseSpotify() {
     }).catch(err => console.error('Pause error:', err));
   }
 }
-
 
 
