@@ -1,7 +1,7 @@
 🚀 SPACEJAM
-SPACEJAM is a Flask-based web application designed to [briefly state its purpose – e.g., "provide astronomy updates and simulations" or "connect users with space exploration content"]. This project is built with simplicity and scalability in mind, and is deployed seamlessly on Render.
+SPACEJAM is a Flask-based web application designed to play music on the basis of the astronomical photo of the day. This project is built with simplicity and scalability in mind, and is deployed seamlessly on Render.
 
-Link To the Website - https://spacejam.onrender.com
+
 
 🌟 Features
 CHALLENGES BASED ON DIFFICULTIES
