@@ -14,6 +14,7 @@ document.getElementById('fetch-btn').addEventListener('click', async () => {
   try {
     const res = await fetch('/api/apod');
     const data = await res.json();
+    
 
     localStorage.setItem('spaceImage', data.url);
     localStorage.setItem('title', data.title);
@@ -25,10 +26,15 @@ document.getElementById('fetch-btn').addEventListener('click', async () => {
       body: JSON.stringify({ imageUrl: data.url })
     });
     const analysis = await response.json();
+    
 
+
+  
     document.body.style.background = `radial-gradient(circle at 50% 50%, ${analysis.gradient[0]}, ${analysis.gradient[1]})`;
     localStorage.setItem('gradient1', analysis.gradient[0]);
     localStorage.setItem('gradient2', analysis.gradient[1]);
+    localStorage.setItem('mood', analysis.mood);
+
 
     document.getElementById('apod-title').innerText = data.title;
     document.getElementById('apod-description').innerText = data.explanation;

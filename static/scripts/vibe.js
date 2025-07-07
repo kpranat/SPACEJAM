@@ -1,97 +1,56 @@
-const GIPHY_API_KEY = 'YOUR_API_KEY'; // Replace with your Giphy API key
+// 🌈 Load gradient from localStorage
+const gradient1 = localStorage.getItem('gradient1') || '#6a11cb';
+const gradient2 = localStorage.getItem('gradient2') || '#2575fc';
 
-const gradient1 = localStorage.getItem('gradient1');
-const gradient2 = localStorage.getItem('gradient2');
+document.body.style.background = `linear-gradient(135deg, ${gradient1}, ${gradient2})`;
+document.body.style.transition = 'background 1s ease';
 
-if (gradient1 || gradient2) {
-  document.body.style.background = `linear-gradient(135deg, ${gradient1}, ${gradient2})`;
-}
+// 🔑 Mood mapping
+const moodKey = localStorage.getItem('mood') || 'stellar calm';
+const mood_map = {
+  "stellar calm": "ambient space",
+  "solar drift": "lofi beats",
+  "nebula pulse": "synthwave",
+  "lunar isolation": "dark ambient",
+  "galactic romance": "dream pop",
+  "void stare": "post-rock",
+  "aurora spark": "uplifting electronic",
+  "cosmic surge": "space techno"
+};
 
-const bg = localStorage.getItem('spaceImage');
-const title = localStorage.getItem('title');
-const desc = localStorage.getItem('description');
+const displayMood = mood_map[moodKey] || "ambient space";
+document.getElementById('mood').innerText = `Your cosmic vibe: ${displayMood}`;
 
+// ✅ Define window.onSpotifyIframeApiReady globally ONCE
+window.onSpotifyIframeApiReady = (IFrameAPI) => {
+  const element = document.getElementById('embed-iframe');
+  const options = { uri: '' }; // empty initially
+  const callback = (EmbedController) => {
+    // Store globally for later use
+    window.embedController = EmbedController;
+  };
+  IFrameAPI.createController(element, options, callback);
+};
 
-if (bg) {
- // document.body.style.backgroundImage = `url('${bg}')`;
-}
-document.getElementById('vibe-title').innerText = title || '';
-document.getElementById('vibe-desc').innerText = desc || '';
-
-const keyword = extractKeyword(`${title} ${desc}`);
-
-async function fetchGif() {
+// 🌌 Function to load playlist based on mood
+async function loadSpotifyPlaylist(moodQuery) {
   try {
-    const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(keyword)}&limit=1`);
+    const res = await fetch(`/api/search-playlist/${encodeURIComponent(moodQuery)}`);
     const data = await res.json();
-    const gifUrl = data.data[0]?.images?.downsized_medium?.url;
-
-    if (gifUrl) {
-      document.getElementById('gif-preview').innerHTML = `<img src="${gifUrl}" alt="${keyword} GIF" />`;
+    if (data.playlist_uri) {
+      // ✅ Use existing EmbedController to load new playlist
+      if (window.embedController) {
+        window.embedController.loadUri(data.playlist_uri);
+      } else {
+        console.error("Spotify embed controller not initialized yet.");
+      }
     } else {
-      document.getElementById('gif-preview').innerHTML = `<p>No related GIF found.</p>`;
+      console.error("No playlist found for mood:", moodQuery);
     }
   } catch (err) {
-    console.error('GIF fetch error:', err);
-    document.getElementById('gif-preview').innerHTML = `<p>Failed to load GIF.</p>`;
+    console.error("Error fetching playlist:", err);
   }
 }
 
-function extractKeyword(text) {
-  const moodMap = {
-    'explosion': 'edm',
-    'nebula': 'nebula',
-    'galaxy': 'galaxy',
-    'sun': 'sun',
-    'eclipse': 'eclipse',
-    'moon': 'moon',
-    'black hole': 'black hole',
-    'stars': 'stars'
-  };
-  text = (text || '').toLowerCase();
-  for (let word in moodMap) {
-    if (text.includes(word)) return moodMap[word];
-  }
-  return 'space';
-}
-
-fetchGif();
-
-
-
-const playBtn = document.getElementById("play-btn");
-const pauseBtn = document.getElementById("pause-btn");
-
-playBtn.addEventListener("click", () => {
-  playSpotifyTrack();
-});
-
-pauseBtn.addEventListener("click", () => {
-  pauseSpotify();
-});
-
-function playSpotifyTrack() {
-  if (window.spotifyDeviceId && window.spotifyAccessToken && window.spotifyTrackUri) {
-    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${window.spotifyDeviceId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ uris: [window.spotifyTrackUri] }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${window.spotifyAccessToken}`
-      },
-    }).catch(err => console.error('Play error:', err));
-  }
-}
-
-function pauseSpotify() {
-  if (window.spotifyAccessToken) {
-    fetch('https://api.spotify.com/v1/me/player/pause', {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${window.spotifyAccessToken}`
-      }
-    }).catch(err => console.error('Pause error:', err));
-  }
-}
-
-
+// 🚀 Call to load playlist on page load
+loadSpotifyPlaylist(displayMood);

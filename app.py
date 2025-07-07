@@ -2,28 +2,29 @@ from flask import Flask, render_template, send_from_directory, jsonify, request,
 import requests
 import google.generativeai as genai
 import json
-import base64
-import os
-import random
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
+
+SPOTIFY_CLIENT_ID = "ce0d57489375419f9a6401e35f26542b"
+SPOTIFY_CLIENT_SECRET = "c1474458a85d48e9848fb1f893deee70"
+
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
+    client_id=SPOTIFY_CLIENT_ID,
+    client_secret=SPOTIFY_CLIENT_SECRET
+))
+
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'MRCODES'  # Replace with a strong secret for session security
 
-NASA_API_KEY = "YOUR_API_KEY"
-GEMINI_API_KEY = "YOUR_API_KEY"
+NASA_API_KEY = "dGPi8OuMGzQjtfsj3n7rABsoIFATXKOR9FJQRXt1"
+GEMINI_API_KEY = "AIzaSyCo5oijfEAdA_sv17UlPap--6phBiz4TrI"
 
 genai.configure(api_key=GEMINI_API_KEY)
-
-# Spotify config
-SPOTIFY_CLIENT_ID = 'YOUR_CLIENT_ID'
-SPOTIFY_CLIENT_SECRET = 'YOUR_CLIENT_SECRET'
-SPOTIFY_REDIRECT_URI = 'http://127.0.0.1:5000'
-SCOPE = "streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state"
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/vibe.html')
 def vibe():
@@ -49,14 +50,17 @@ def analyze_image():
     model = genai.GenerativeModel('gemini-1.5-flash')
     prompt = (
     "Given this image, extract two HEX color codes that would make a good CSS radial gradient background, "
-    "and describe the overall mood of the image in one word (like 'calm', 'energetic', 'mysterious', etc). "
-    "Respond as JSON: {\"gradient\": [\"#hex1\", \"#hex2\"], \"mood\": \"moodword\"}"
+    "and describe the overall mood of the image in one word using this mood map="
+  "stellar calm,solar drit, nebula pulse,   lunar isolation, galactic romance,   void stare,   aurora spark,  cosmic surge"
+  "Respond as JSON: {\"gradient\": [\"#hex1\", \"#hex2\"], \"mood\": \"moodword\"}"
     )
     try:
         response = model.generate_content([prompt, image_url])
         text = response.text.strip()
         if "```json" in text:
             text = text.split("```json")[-1].split("```")[0].strip()
+           
+
         elif "```" in text:
             text = text.split("```")[-1].strip()
         result = json.loads(text)
@@ -69,64 +73,25 @@ def analyze_image():
     return jsonify(result)
 
 
+@app.route('/api/search-playlist/<query>')
+def search_playlist(query):
+    try:
+        results = sp.search(q=query, type='playlist', limit=1)
+        if results['playlists']['items']:
+            playlist_uri = results['playlists']['items'][0]['uri']
+            return jsonify({'playlist_uri': playlist_uri})
+        else:
+            return jsonify({'error': 'No playlist found'})
+    except Exception as e:
+        print("Spotify search error:", e)
+        return jsonify({'error': 'Spotify API error'})
 
-# 🎵 Spotify OAuth flow
-@app.route('/login-spotify')
-def login_spotify():
-    auth_url = (
-        'https://accounts.spotify.com/authorize'
-        f'?response_type=code'
-        f'&client_id={SPOTIFY_CLIENT_ID}'
-        f'&scope={SCOPE}'
-        f'&redirect_uri={SPOTIFY_REDIRECT_URI}'
-    )
-    return redirect(auth_url)
 
-@app.route('/callback')
-def callback():
-    code = request.args.get('code')
-    error = request.args.get('error')
-    if error:
-        return f"Error: {error}"
 
-    auth_str = f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}"
-    b64_auth_str = base64.b64encode(auth_str.encode()).decode()
 
-    headers = {
-        "Authorization": f"Basic {b64_auth_str}",
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
-    data = {
-        "grant_type": "authorization_code",
-        "code": code,
-        "redirect_uri": SPOTIFY_REDIRECT_URI
-    }
 
-    r = requests.post("https://accounts.spotify.com/api/token", headers=headers, data=data)
-    token_data = r.json()
-    session['spotify_token'] = token_data
-
-    return redirect('/vibe.html')
-
-@app.route('/token')
-def get_token():
-    token_data = session.get('spotify_token')
-    if not token_data:
-        return jsonify({'error': 'No token found'}), 401
-    return jsonify(token_data)
-
-# 🎶 Mood to track URI mapping API
-@app.route('/api/mood-track/<mood>')
-def mood_to_track(mood):
-    mood_track_map = {
-        'calm': 'spotify:track:7ouMYWpwJ422jRcDASZB7P',
-        'energetic': 'spotify:track:5ihS6UUlyQAfmp48eSkxuQ',
-        'mysterious': 'spotify:playlist:38329cfad0564f15',
-        'space': 'spotify:track:5N5k9nd479b1xpDZ4usjrg'
-    }
-    track_uri = mood_track_map.get(mood.lower(), 'spotify:track:5N5k9nd479b1xpDZ4usjrg')
-    return jsonify({'track_uri': track_uri})
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render provides PORT
-    app.run(host='0.0.0.0', port=port)
+    #port = int(os.environ.get("PORT", 5000))  # Render provides PORT
+    #app.run(host='0.0.0.0', port=port)
+    app.run(debug=True)
