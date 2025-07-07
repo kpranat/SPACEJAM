@@ -6,7 +6,7 @@ document.getElementById('fetch-btn').addEventListener('click', async () => {
   // Reset animation
   progress.style.animation = 'none';
   progress.offsetHeight; // trigger reflow
-  progress.style.animation = 'loadbar 1s forwards';
+  progress.style.animation = 'loadbar 2s forwards';
 
   loader.classList.add('show');
   const startTime = Date.now();

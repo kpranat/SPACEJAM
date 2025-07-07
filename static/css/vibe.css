@@ -14,6 +14,11 @@ body {
   text-align: center;
 }
 
+body {
+      transition: background 1s ease;
+      min-height: 100vh;
+      margin: 0;
+    }
 .mood {
   font-size: 1.5rem;
   font-weight: 600;
@@ -27,13 +32,17 @@ body {
 }
 
 #embed-iframe {
-  width: 80%;
-  max-width: 300px; /* 🔧 smaller frame width */
+  width:300vh;
+  height:100%;
   margin: 1rem auto;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 25px rgba(0,0,0,0.7), 0 0 40px rgba(0, 173, 181, 0.5);
+  background: rgba(0,0,0,0.4); /* subtle dark background behind iframe */
+  backdrop-filter: blur(10px);
+  padding: 0.5rem;
 }
+
 
 /* ✨ Animate content appearance */
 .fade-in {
@@ -48,4 +57,130 @@ body {
   to { opacity: 1; }
 }
 
+#player{
+  max-width: 300vh;
+  border: black;
+  border-radius: 16px;
+  border-width: 10px;  
+  display:visible;
+}
+
+
+
+
+/* 🌠 Cosmic Loader - CSS Star Field */
+#loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, #0b0f2e, #000000);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.loader-text {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 20px #ffffffcc;
+  margin-top: 2rem;
+  animation: blinkText 2s ease-in-out infinite;
+}
+
+@keyframes blinkText {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.3; }
+}
+
+.star-field {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.stars, .stars2, .stars3 {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  content: "";
+  background-repeat: repeat;
+  background-size: 100px 100px;
+}
+
+.stars {
+  background-image: 
+    radial-gradient(1px 1px at 10% 20%, #fff 80%, transparent 100%),
+    radial-gradient(1px 1px at 60% 80%, #fff 80%, transparent 100%);
+  animation: moveStars 60s linear infinite;
+  opacity: 0.2;
+}
+
+.stars2 {
+  background-image: 
+    radial-gradient(1px 1px at 30% 10%, #fff 80%, transparent 100%),
+    radial-gradient(1px 1px at 90% 40%, #fff 80%, transparent 100%);
+  animation: moveStars 80s linear infinite reverse;
+  opacity: 0.1;
+}
+
+.stars3 {
+  background-image: 
+    radial-gradient(1px 1px at 20% 70%, #fff 80%, transparent 100%),
+    radial-gradient(1px 1px at 70% 30%, #fff 80%, transparent 100%);
+  animation: moveStars 100s linear infinite;
+  opacity: 0.05;
+}
+
+@keyframes moveStars {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50%, -50%); }
+}
+
+
+#cosmic-visualizer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 16px;
+  height: 150px;
+  margin-bottom: 1rem;
+}
+
+.orb {
+  width: 16px;
+  height: 60px;
+  background: linear-gradient(to top, #00ffe1, #7f00ff);
+  border-radius: 50px;
+  box-shadow: 0 0 15px #00ffe1;
+  animation: musicPulse 1.2s ease-in-out infinite;
+  transform-origin: bottom center;
+  opacity: 0.85;
+}
+
+/* Different delays to create variation */
+.orb1 { animation-delay: 0s; height: 50px; }
+.orb2 { animation-delay: 0.1s; height: 60px; }
+.orb3 { animation-delay: 0.2s; height: 40px; }
+.orb4 { animation-delay: 0.3s; height: 70px; }
+.orb5 { animation-delay: 0.15s; height: 55px; }
+
+@keyframes musicPulse {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scaleY(1.7);
+    opacity: 1;
+  }
+}
 

@@ -20,6 +20,7 @@ app.secret_key = 'MRCODES'  # Replace with a strong secret for session security
 NASA_API_KEY = "dGPi8OuMGzQjtfsj3n7rABsoIFATXKOR9FJQRXt1"
 GEMINI_API_KEY = "AIzaSyCo5oijfEAdA_sv17UlPap--6phBiz4TrI"
 
+
 genai.configure(api_key=GEMINI_API_KEY)
 
 @app.route('/')
@@ -85,6 +86,11 @@ def search_playlist(query):
     except Exception as e:
         print("Spotify search error:", e)
         return jsonify({'error': 'Spotify API error'})
+    
+
+
+
+
 
 
 
