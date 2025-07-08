@@ -4,7 +4,9 @@ import google.generativeai as genai
 import json
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+from dotenv import load_dotenv
 import os
+load_dotenv()
 
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
@@ -18,8 +20,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'MRCODES'  # Replace with a strong secret for session security
 
-NASA_API_KEY = "dGPi8OuMGzQjtfsj3n7rABsoIFATXKOR9FJQRXt1"
-GEMINI_API_KEY = "AIzaSyCo5oijfEAdA_sv17UlPap--6phBiz4TrI"
+NASA_API_KEY = os.getenv("NASA_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 genai.configure(api_key=GEMINI_API_KEY)
