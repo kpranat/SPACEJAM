@@ -5,7 +5,7 @@ const gradient2 = localStorage.getItem('gradient2') || '#2575fc';
 // 🔑 Mood mapping
 const moodKey = localStorage.getItem('mood') || 'stellar calm';
 const mood_map = {
-  "stellar calm": "ambient space",
+  "stellar calm": "deep focus",
   "solar drift": "lofi beats",
   "nebula pulse": "synthwave",
   "lunar isolation": "dark ambient",
@@ -15,10 +15,7 @@ const mood_map = {
   "cosmic surge": "space techno"
 };
 
-const displayMood = mood_map[moodKey] || "cosmic";
-if (displayMood === "cosmic") {
-  alert("playlist not available yet");
-}
+const displayMood = mood_map[moodKey] || "ambient space";
 
 // ✅ Define window.onSpotifyIframeApiReady globally ONCE
 window.onSpotifyIframeApiReady = (IFrameAPI) => {
