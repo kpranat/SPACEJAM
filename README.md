@@ -25,7 +25,7 @@ TECHNOLOGIES
 
 REQUIREMENTS
 You need api keys to work with. Replace "YOUR_API_KEY" with the api key you have generated
-Replace spotify clied id("YOUR_CLIENT..") and client secret("YOUR_CLIENT..") with the ones you have geenerated 
+Replace spotify clied id("YOUR_CLIENT..") and client secret("YOUR_CLIENT..") with the ones you have geenerated.
 
 📁 Project Structure
 SPACEJAM/
