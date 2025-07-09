@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  height: 90vh;
+ 
   background: url('../images/starry.jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: sans-serif;
@@ -21,9 +21,15 @@ body {
 }
 
 #apod-description{
-  font-family: 'Times New Roman', Times, serif;
-  font-size: 1.25rem;
-  max-width:100ch;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    max-width: 60vh;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    padding: 5vh;
+    border: solid;
+    border-color: aquamarine;
 }
 
 @keyframes fadeInUp {
@@ -58,78 +64,17 @@ button:hover {
 }
 
 #apod-image {
-  display: none;
-  max-width: 600px;
-  max-height: 600px;
-  width: 100%;
-  height: auto;
-  border-radius: 24px;
-  margin: 20px auto;
-  object-fit: contain;
+    display: none;
+    max-width: 45vh;
+    max-height: 600px;
+    height: auto;
+    border-radius: 24px;
+    margin: 20px auto;
+    object-fit: contain;
+    border: solid;
 }
 
-/* Meteor Shower Loading Animation */
-.meteor-shower {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
-  overflow: hidden;
-}
 
-.meteor {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0;
-  animation: meteor-fall linear infinite;
-}
-
-.meteor::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, white, transparent);
-  transform: translateX(-100px);
-  opacity: 0.7;
-}
-
-.meteor::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-  transform: translateX(-50px);
-  opacity: 0.5;
-}
-
-@keyframes meteor-fall {
-  0% {
-    opacity: 0;
-    transform: translateX(-100px) translateY(-100px);
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(100vw) translateY(100vh);
-  }
-}
 
 /* Loading overlay */
 .loading-overlay {
@@ -179,11 +124,7 @@ button:hover {
   pointer-events: none;
 }
 
-/* Fade out animation for meteor shower */
-.meteor-shower.fade-out {
-  opacity: 0;
-  transition: opacity 1s ease-out;
-}
+
 
 .loading-container {
   text-align: center;
