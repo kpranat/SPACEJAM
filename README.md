@@ -15,7 +15,6 @@ SPACEJAM is a Flask-based web application designed to play music on the basis of
 API USED
 • NASA API – Used for image and description collection of ASTRONOMICAL PHOTO OF THE DAY (APOD)
 • GEMINI API – to extract mood based color scheme and keywords through prompt engineering and visual processing
-• GIHPY API – to display GIFs based on extracted keywords and moods
 • SPOTIFY API – to provide and play playlists based on the extracted moods and keywords
 • WEGLOT API – For multilingual support and translation
 TECHNOLOGIES
@@ -25,7 +24,7 @@ TECHNOLOGIES
 
 REQUIREMENTS
 You need api keys to work with. Replace "YOUR_API_KEY" with the api key you have generated
-Replace spotify clied id("YOUR_CLIENT..") and client secret("YOUR_CLIENT..") with the ones you have geenerated.
+Replace spotify clied id("YOUR_CLIENT..") and client secret("YOUR_CLIENT..") with the ones you have geenerated. The api keys and client id/secret need to be in an .env file.
 
 📁 Project Structure
 SPACEJAM/
